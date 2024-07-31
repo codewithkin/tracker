@@ -14,11 +14,13 @@ var api_url = 'https://geo.ipify.org/api/v1?';
 app.get("/", async (req, res) => {
         try {
 		console.log("Request made");
-		const ip = req.socket.remoteAddress;
+		const ip = req.ip;
         	var url = api_url + 'apiKey=' + api_key + '&ipAddress=' + ip;
 		const response = await axios.get(url);
 		console.log(ip)
 		console.log(response.data.location);
+
+		res.send(response.data.location);
 	} catch (e) {
 		console.log(e);
 		res.send("An error occured");
